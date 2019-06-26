@@ -3,17 +3,8 @@ import random
 
 from time import sleep
 from garagedoor import GarageDoor
-from io import IO
+from gd_io import IO
 from mqttObserver import MqttObserver
-
-mqttc = mqtt.Client("MQTT_Client")
-mqttc.connect("mq.casadeoso.com")
-mqttc.subscribe("garage/door/status/set")
-mqttc.on_message=on_message
-mqttc.loop_start()
-
-gd = GarageDoor(IO())
-gd.addObserver(MqttOberver(mqttc, "garage/door/status"))
 
 def on_message(client, userdata, message):
     requested_state = str(message.payload.decode("utf-8"))
@@ -30,6 +21,13 @@ def on_message(client, userdata, message):
         print("toggle")
         gd.toggle()
 
+mqttc = mqtt.Client("MQTT_Client")
+mqttc.connect("mq.casadeoso.com")
+mqttc.subscribe("garage/door/status/set")
+mqttc.on_message=on_message
+mqttc.loop_start()
+
+gd = GarageDoor(IO())
 
 def main():
     while True:
