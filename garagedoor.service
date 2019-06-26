@@ -1,0 +1,14 @@
+[Unit]
+Description=GarageDoor Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 -u client.py
+WorkingDirectory=/home/pi/garage-door
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
