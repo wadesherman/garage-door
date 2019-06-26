@@ -14,6 +14,5 @@ class IO:
 
     def pressButton(self):
         self.relay.on()
-        sleep(1)
+        sleep(0.5)
         self.relay.off()
-        sleep(1)

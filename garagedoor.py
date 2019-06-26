@@ -23,10 +23,13 @@ class GarageDoor(object):
         self.machine.add_transition(trigger='request_open', source='closed', dest='transitioning')
         self.machine.add_transition(trigger='request_closed', source='open', dest='transitioning')
         self.machine.add_transition(trigger='toggle', source=['open', 'closed'], dest='transitioning')
-        self.machine.add_transition(trigger='resolve_closed', source='transitioning', dest='closed', after='notify')
-        self.machine.add_transition(trigger='resolve_open', source='transitioning', dest='open', after='notify')
+        self.machine.add_transition(trigger='resolve_closed', source=['open', 'transitioning'], dest='closed', after='notify')
+        self.machine.add_transition(trigger='resolve_open', source=['closed', 'transitioning'], dest='open', after='notify')
 
         self.machine.on_enter_transitioning('pressButton')
+
+        self.io.sensor.when_pressed = self.resolve_closed
+        self.io.sensor.when_released = self.resolve_open
 
     def pressButton(self):
         self.io.pressButton()
@@ -45,10 +48,3 @@ class GarageDoor(object):
     def notify(self):
         for o in self.observers:
             o.notify(self.state)
-
-class Foo:
-    def pressButton(self):
-        print('pressButton')
-
-    def isClosed(self):
-        print('isClosed')
