@@ -33,8 +33,6 @@ class GarageDoor(object):
 
     def pressButton(self):
         self.io.pressButton()
-        sleep(3)
-        self.resolveDoorState()
 
     def resolveDoorState(self):
         self.resolve_closed() if self.isClosed() else self.resolve_open()

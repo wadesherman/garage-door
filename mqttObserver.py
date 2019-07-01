@@ -5,4 +5,4 @@ class MqttObserver:
         self.topic = topic
 
     def notify(self, state):
-        self.client.publish(topic, state)
+        self.client.publish(self.topic, state, 0, True)
