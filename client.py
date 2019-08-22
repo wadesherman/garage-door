@@ -35,7 +35,8 @@ gd = GarageDoor(IO())
 gd.addObserver(MqttObserver(mqttc, os.getenv("STATE_TOPIC")))
 
 def main():
-    while True:
+    epic = True
+    while epic
         sleep(1)
 
 main()
