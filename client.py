@@ -36,7 +36,7 @@ gd.addObserver(MqttObserver(mqttc, os.getenv("STATE_TOPIC")))
 
 def main():
     epic = True
-    while epic
+    while epic:
         sleep(1)
 
 main()
